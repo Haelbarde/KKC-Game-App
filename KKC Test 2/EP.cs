@@ -19,10 +19,9 @@ namespace KKC_Test_2
         /// <summary>
         /// Manages all Elevation Point calculations.
         /// </summary>
-        /// <param name="input"></param>
-
-        public EP(ValueRange input)
+        public EP()
         {
+            var input = KKC.RequestGMRange(KKC.gmSheet, "C2:K" + (KKC.playerList.Count + 1));
             var values = input.Values;
 
             ImportPlayers(values);
@@ -68,7 +67,7 @@ namespace KKC_Test_2
         /// <summary>
         /// Import existing EP totals from GM Spreadsheet into each player's EP field.
         /// </summary>
-        /// <param name="playerInput"></param>
+        /// <param name="playerInput">Array of data imported from GM Spreadsheet.</param>
         public void ImportPlayers(IList<IList<object>> playerInput)
         {
 
@@ -84,19 +83,23 @@ namespace KKC_Test_2
             }
 
             // Log imported values
+            Debug.Log("Imported Array", ConsoleColor.Magenta, false);
             WriteToConsole();
-            Console.WriteLine("Imported Array");
+            
             
         }
 
-
+        /// <summary>
+        /// Imports data from each Player's Sheet.
+        /// </summary>
+        /// <exception cref="Exception"></exception>
         public static void ImportRound()
         {
             // Import player data from each sheet
 
             foreach (Player player in KKC.playerList)
             {
-                ValueRange response = KKC.RequestPlayerRange(player.ID, KKC.playerSheet, "B11:B15");
+                ValueRange response = KKC.RequestPlayerRange(player, KKC.playerSheet, "B11:B15");
                 var input = response.Values;
                 foreach (var EP in input)
                 {
@@ -126,10 +129,12 @@ namespace KKC_Test_2
 
 
 
-
-        public void WriteToConsole()
+        /// <summary>
+        /// Writes to console the current EP array.
+        /// </summary>
+        public static void WriteToConsole()
         {
-            Console.WriteLine("         Lin Ari R&L Arc Sym Phy Alc Art Nam");
+            Debug.Log("         Lin Ari R&L Arc Sym Phy Alc Art Nam", ConsoleColor.Yellow, false);
 
             foreach (Player player in KKC.playerList)
             {
@@ -140,7 +145,7 @@ namespace KKC_Test_2
                     output += player.EP[field] + "   ";
                 }
                 output += "]";
-                Console.WriteLine(output);
+                Debug.Log(output, ConsoleColor.Yellow, false);
             }
         }
 
@@ -172,11 +177,8 @@ namespace KKC_Test_2
         public void ElevateField(KKC.Fields field)
         {
 
-            Random random = new Random();
+            Random random = new();
 
-            
-
-           
             // Check if Master or Elthe
             if (false)
             {
@@ -198,14 +200,14 @@ namespace KKC_Test_2
                             player.Elevate((KKC.Fields)field);
                             playersElevated.Add(player);
                                 
-                            Console.WriteLine($"{(KKC.Fields)field}: {player.Name} ({selection})");
+                            Debug.Log($"{(KKC.Fields)field}: {player.Name} ({selection})", ConsoleColor.Blue, false);
                             break;
                         }
                     }
                 }
                 else
                 {
-                    Console.WriteLine($"{field}: No player elevated");
+                    Debug.Log($"{field}: No player elevated", ConsoleColor.Blue, false);
                 }
             }
 

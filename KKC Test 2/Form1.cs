@@ -19,8 +19,8 @@ namespace KKC_Test_2
     {
       
 
-        KKC? kkc;
-        EP? pointArray;
+        KKC kkc;
+        EP? ep;
 
         public Form1()
         {
@@ -48,7 +48,7 @@ namespace KKC_Test_2
             Debug.Log("Start importing EP totals from GM Sheet...");
             if (KKC.playerList.Count > 0)
             {
-                pointArray = new EP( kkc.RequestGMRange(KKC.gmSheet, "C2:K" + (KKC.playerList.Count + 1)) );
+                ep = new EP();
             }
             Debug.Log("Completed.");
 
@@ -58,21 +58,21 @@ namespace KKC_Test_2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (pointArray is not null)
+            if (ep is not null)
             {
                 // Imports current EP from player sheets
                 EP.ImportRound();
 
-                pointArray.WriteToConsole();
+                EP.WriteToConsole();
 
 
                 // Elevate each player. Currently returns the player ID of the elevated player, or -1 if no elevation.
                 foreach (KKC.Fields field in Enum.GetValues(typeof(KKC.Fields)))
                 {
-                    pointArray.ElevateField(field);
+                    ep.ElevateField(field);
                 }
-                
-                pointArray.WriteToConsole();
+
+                EP.WriteToConsole();
 
                 // TO DO
                 // - Update Rank

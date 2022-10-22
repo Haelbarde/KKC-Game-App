@@ -20,14 +20,13 @@ namespace KKC_Test_2
         static readonly string[] Scopes = { SheetsService.Scope.Spreadsheets };
         static readonly string ApplicationName = "KKC GM App";
         public static readonly string SpreadsheetIDGM = "1zJGpn9_3My5ExYwMr_4Qu--B927N0eTBEjIoiQ3y-J0";
-        static readonly List<string> SpreadsheetIDPlayers = new List<string> {
-                    "1NqHM6p0JzW2P6RmWrANnxI_xPeExslcsRqNiP7onYZw",
-                    "11fQfzEk4GD-p030RBGMHhPzUsI0A1Si0S-Y84A0p8zk" };
-
         public static readonly string gmSheet = "GM Data";
         public static readonly string playerSheet = "Player Input";
         public static SheetsService service;
 
+        /// <summary>
+        /// Manages connection to Google Sheets, and importing initial player list into local memory.
+        /// </summary>
         public KKC()
         {
             // Set up credentials for using the Google Sheets API
@@ -81,16 +80,13 @@ namespace KKC_Test_2
             }
         }
 
-        void SetupSheetsConnection()
-        {
-            
-
-
-            
-        }
-
-
-        public ValueRange RequestGMRange(string sheet, string inputRange)
+        /// <summary>
+        /// Request Data from the GM Sheet Google Sheet.
+        /// </summary>
+        /// <param name="sheet">The name of the relevant tab on the Google Sheet.</param>
+        /// <param name="inputRange">The Cell Range to import.</param>
+        /// <returns>Returns list of rows, each of which list the values in the columns of range.</returns>
+        public static ValueRange RequestGMRange(string sheet, string inputRange)
         {
             Debug.Log("Request range from GM Sheet...");
             var sheetRange = $"{sheet}!" + inputRange;
@@ -100,11 +96,18 @@ namespace KKC_Test_2
             return range;
         }
 
-        public static ValueRange RequestPlayerRange(int playerID, string sheet, string inputRange)
+        /// <summary>
+        /// Request Data from the specified Player Google Sheet.
+        /// </summary>
+        /// <param name="playerID">The Player object from KKC.PlayerList</param>
+        /// <param name="sheet">The name of the relevant tab on the Google Sheet.</param>
+        /// <param name="inputRange">The Cell Range to import.</param>
+        /// <returns>Returns list of rows, each of which list the values in the columns of range.</returns>
+        public static ValueRange RequestPlayerRange(Player player, string sheet, string inputRange)
         {
             Debug.Log("Request range from Player Sheet...");
             var sheetRange = $"{sheet}!" + inputRange;
-            var request = service.Spreadsheets.Values.Get(KKC.playerList[playerID].Sheet, sheetRange);
+            var request = service.Spreadsheets.Values.Get(player.Sheet, sheetRange);
             var range = request.Execute();
             Debug.Log("Request returned.");
             return range;
