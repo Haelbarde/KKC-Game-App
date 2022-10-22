@@ -10,22 +10,29 @@ namespace KKC_Test_2
     {
         static bool Enabled = true;
         static DateTime lastTime = DateTime.Now;
+        static ConsoleColor DefaultColor = ConsoleColor.Gray;
+        static ConsoleColor DefaultDebugColor = ConsoleColor.Green;
         public Debug()
         {
 
         }
         public static void Log(string message)
         {
+            Log(message, DefaultDebugColor);
+        }
+        public static void Log(string message, ConsoleColor color, bool displayTime = true)
+        {
             if (Enabled)
             {
-                var current = Console.ForegroundColor;
-                Console.ForegroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = color;
                 string timeDif = (DateTime.Now - lastTime).TotalMilliseconds.ToString();
                 lastTime = DateTime.Now;
-                Console.WriteLine($"{DateTime.Now.ToString("hh:mm:ss:fff")} ({timeDif}ms): {message}");
-                Console.ForegroundColor = current;
+                string time = "";
+                if(displayTime)
+                    time = $"{DateTime.Now.ToString("hh:mm:ss:fff")} ({timeDif}ms): ";
+                Console.WriteLine($"{time}{message}");
+                Console.ForegroundColor = DefaultColor;
             }
-            
         }
     }
 }
