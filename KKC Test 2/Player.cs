@@ -26,6 +26,8 @@ namespace KKC_Test_2
         public Background origin;
         public double Coin;
 
+        public List<KKC.Fields> EPFiled { get; set; } = new List<KKC.Fields>();
+
         public List<Player> ComplaintsToFile;
         public List<Player> ComplaintsReceived;
         public Horns.Outcome DPOutcome;

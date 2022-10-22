@@ -31,20 +31,21 @@ namespace KKC_Test_2
         public KKC()
         {
             // Set up credentials for using the Google Sheets API
+
             GoogleCredential credential;
             using (var stream = new FileStream("sheets_auth_key.json", FileMode.Open, FileAccess.Read))
             {
                 credential = GoogleCredential.FromStream(stream)
                     .CreateScoped(Scopes);
             }
-
+            Debug.Log("Credential Created.");
             // Open Sheets requests
             service = new SheetsService(new Google.Apis.Services.BaseClientService.Initializer()
             {
                 HttpClientInitializer = credential,
                 ApplicationName = ApplicationName,
             });
-
+            Debug.Log("Service Created.");
 
 
 
@@ -57,6 +58,7 @@ namespace KKC_Test_2
             var values = response.Values;
 
             // Display retrieved values in the player combobox
+            Debug.Log("Adding players to ComboBox and static PlayerList...");
             if (values != null && values.Count > 0)
             {
                 foreach (var row in values)
@@ -70,6 +72,7 @@ namespace KKC_Test_2
                         {
                             Player player = new Player(name, sheet);
                             playerList.Add(player);
+                            Debug.Log($"Added {player.Name}.");
                         }
                         
                     }
@@ -89,16 +92,22 @@ namespace KKC_Test_2
 
         public ValueRange RequestGMRange(string sheet, string inputRange)
         {
-            var range = $"{sheet}!" + inputRange;
-            var request = service.Spreadsheets.Values.Get(SpreadsheetIDGM, range);
-            return request.Execute();          
+            Debug.Log("Request range from GM Sheet...");
+            var sheetRange = $"{sheet}!" + inputRange;
+            var request = service.Spreadsheets.Values.Get(SpreadsheetIDGM, sheetRange);
+            var range = request.Execute(); ;
+            Debug.Log("Request returned.");
+            return range;
         }
 
         public static ValueRange RequestPlayerRange(int playerID, string sheet, string inputRange)
         {
-            var range = $"{sheet}!" + inputRange;
-            var request = service.Spreadsheets.Values.Get(KKC.playerList[playerID].Sheet, range);
-            return request.Execute();
+            Debug.Log("Request range from Player Sheet...");
+            var sheetRange = $"{sheet}!" + inputRange;
+            var request = service.Spreadsheets.Values.Get(KKC.playerList[playerID].Sheet, sheetRange);
+            var range = request.Execute();
+            Debug.Log("Request returned.");
+            return range;
         }
     }
 }

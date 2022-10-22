@@ -24,23 +24,33 @@ namespace KKC_Test_2
 
         public Form1()
         {
-            InitializeComponent();
+            Debug.Log("Form Opened.");
 
+            Debug.Log("Start Initialising components...");
+            InitializeComponent();
+            Debug.Log("Completed.");
+
+            Debug.Log("Create KKC object...");
             kkc = new KKC();
+            Debug.Log("Completed.");
+
 
             // Setup player list in Form combobox
+            Debug.Log("Setup players in ComboBox...");
             playerListBox.Items.Clear();
             foreach (var player in KKC.playerList)
             {
                 playerListBox.Items.Add(player.Name);
             }
+            Debug.Log("Completed.");
 
             // Import EP from GM sheet
+            Debug.Log("Start importing EP totals from GM Sheet...");
             if (KKC.playerList.Count > 0)
             {
-                pointArray = new EP(
-                    kkc.RequestGMRange(KKC.gmSheet, "C2:K" + (KKC.playerList.Count + 1)), KKC.playerList );
+                pointArray = new EP( kkc.RequestGMRange(KKC.gmSheet, "C2:K" + (KKC.playerList.Count + 1)) );
             }
+            Debug.Log("Completed.");
 
         }
 
@@ -51,26 +61,31 @@ namespace KKC_Test_2
             if (pointArray is not null)
             {
                 // Imports current EP from player sheets
-                EP._ImportRound();
+                EP.ImportRound();
 
-                pointArray._WriteToConsole();
+                pointArray.WriteToConsole();
 
-                int playerID;
 
                 // Elevate each player. Currently returns the player ID of the elevated player, or -1 if no elevation.
                 foreach (KKC.Fields field in Enum.GetValues(typeof(KKC.Fields)))
                 {
-                    playerID = pointArray._ElevateField(field);
+                    pointArray.ElevateField(field);
                 }
-
-                pointArray._WriteToConsole();
+                
+                pointArray.WriteToConsole();
 
                 // TO DO
                 // - Update Rank
                 // - Update Player Record
                 // - Update GM Data
 
-                pointArray._Upload();
+                // pointArray._Upload();
+
+
+
+
+
+
 
                 /*
                 var range = $"{playerSheet}!C9:C13";
