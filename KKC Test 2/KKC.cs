@@ -30,7 +30,6 @@ namespace KKC_Test_2
         public KKC()
         {
             // Set up credentials for using the Google Sheets API
-
             GoogleCredential credential;
             using (var stream = new FileStream("sheets_auth_key.json", FileMode.Open, FileAccess.Read))
             {
@@ -38,6 +37,8 @@ namespace KKC_Test_2
                     .CreateScoped(Scopes);
             }
             Debug.Log("Credential Created.");
+
+
             // Open Sheets requests
             service = new SheetsService(new Google.Apis.Services.BaseClientService.Initializer()
             {
@@ -47,7 +48,6 @@ namespace KKC_Test_2
             Debug.Log("Service Created.");
 
 
-
             // Import player list from GM Sheet
             int numberOfPlayers = 0;
             var response1 = RequestGMRange(gmSheet, "B1:B1").Values;;
@@ -55,6 +55,7 @@ namespace KKC_Test_2
 
             var response = RequestGMRange(gmSheet, "A2:B" + (numberOfPlayers + 1));
             var values = response.Values;
+
 
             // Display retrieved values in the player combobox
             Debug.Log("Adding players to ComboBox and static PlayerList...");
@@ -73,12 +74,11 @@ namespace KKC_Test_2
                             playerList.Add(player);
                             Debug.Log($"Added {player.Name}.");
                         }
-                        
-                    }
-                    
+                    } 
                 }
             }
         }
+
 
         /// <summary>
         /// Request Data from the GM Sheet Google Sheet.
@@ -95,6 +95,7 @@ namespace KKC_Test_2
             Debug.Log("Request returned.");
             return range;
         }
+
 
         /// <summary>
         /// Request Data from the specified Player Google Sheet.

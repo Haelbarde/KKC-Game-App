@@ -32,33 +32,42 @@ namespace KKC_Test_2
             }
         }
 
-        public void _Upload()
+        /// <summary>
+        /// Uploads updated EP to GM Sheet
+        /// </summary>
+        public void Upload()
         {
-           /* // Save Points to GM sheet
+            // Save Points to GM sheet
             var valueRange = new ValueRange();
-            valueRange.Values = _ToLists(points);
+            valueRange.Values = ToLists();
             if (KKC.service is not null)
             {
-                var updateRequest = KKC.service.Spreadsheets.Values.Update(valueRange, KKC.SpreadsheetIDGM, $"{KKC.gmSheet}!C2:K" + _playerList.Count + 1);
+                var updateRequest = KKC.service.Spreadsheets.Values.Update(valueRange, KKC.SpreadsheetIDGM, $"{KKC.gmSheet}!C2:K" + KKC.playerList.Count + 1);
                 updateRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
                 var updateResponse = updateRequest.Execute();
 
-            }*/
+            }
         }
 
-
-        public IList<IList<object>> _ToLists(int[,] array)
+        /// <summary>
+        /// Packages EP into the ValueRange datatype
+        /// </summary>
+        /// <returns>Returns converted EP structure.</returns>
+        public IList<IList<object>> ToLists()
         {
+            Debug.Log($"Packaging Player EP arrays for upload...");
             IList<IList<object>> list = new List<IList<object>>();
-            for (int i = 0; i < array.GetLength(0); i++)
+            foreach( Player player in KKC.playerList)
             {
                 IList<object> col = new List<object>();
-                for (int j = 0; j < array.GetLength(1); j++)
+                foreach( KKC.Fields field in Enum.GetValues(typeof(KKC.Fields)))
                 {
-                    col.Add((object)array[i, j]);
+                    col.Add((object)player.EP[(int)field]);
                 }
                 list.Add(col);
+                Debug.Log($"Added {player.Name}.");
             }
+            Debug.Log($"Complete.");
             return list;
         }
 
