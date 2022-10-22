@@ -66,13 +66,18 @@ namespace KKC_Test_2
 
         }
 
-        // Should never be called on a Master, and only called on Elthe if they have 15 EP, and a check has been done for any other fields also trying to elevate to Master.
+        /// <summary>
+        /// Elevates a player.
+        /// Note: When elevating El'the to Master, check if any other fields would elevate to Mas
+        /// </summary>
+        /// <param name="field">The field to elevate from.</param>
         public void Elevate(KKC.Fields field)
         {
             if (Elevation != Rank.Elthe || Elevation != Rank.Master)
             {
                 EP[(int)field] = Math.Max(EP[(int)field] - 5, 0);
-            } else if (Elevation == Rank.Elthe)
+            } 
+            else if (Elevation == Rank.Elthe)
             {
                 EP[(int)field] -= 15;
             }
@@ -95,9 +100,12 @@ namespace KKC_Test_2
                     Console.WriteLine("No Elevation");
                     break;
             }
-
         }
 
+
+        /// <summary>
+        /// Processes all player complaints
+        /// </summary>
         public void LodgeComplaints()
         {
             foreach (Player player in ComplaintsToFile)

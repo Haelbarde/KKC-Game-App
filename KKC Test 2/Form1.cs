@@ -74,6 +74,7 @@ namespace KKC_Test_2
 
 
                 // Elevate each player. Currently returns the player ID of the elevated player, or -1 if no elevation.
+                // Need to deal with elevating a PC to Master first.
                 foreach (KKC.Fields field in Enum.GetValues(typeof(KKC.Fields)))
                 {
                     ep.ElevateField(field);
