@@ -12,14 +12,26 @@ namespace KKC_Test_2
         static DateTime lastTime = DateTime.Now;
         static ConsoleColor DefaultColor = ConsoleColor.Gray;
         static ConsoleColor DefaultDebugColor = ConsoleColor.Green;
+        
         public Debug()
         {
 
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
         public static void Log(string message)
         {
             Log(message, DefaultDebugColor);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="color"></param>
+        /// <param name="displayTime"></param>
         public static void Log(string message, ConsoleColor color, bool displayTime = true)
         {
             if (Enabled)

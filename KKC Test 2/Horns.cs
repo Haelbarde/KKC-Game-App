@@ -8,13 +8,23 @@ namespace KKC_Test_2
 {
     internal class Horns
     {
+        /// <summary>
+        /// Enum for possible outcomes of the Horns.
+        /// Dropped - Charges are dropped, no further effect beyond normal tuition reductions.
+        /// Mischief - Undignified Mischief. Punishment is a Formal Apology: Player must apologize in thread. Failure to do so results in 2 DP the next turn and a further 2 talent tuition increase.
+        /// RecklessUse - Reckless Use of Sympathy. Punichment is a Public Lashing: Cannot take actions for 1 turn, unless they have nahlrout. 
+        /// ConductUnbecoming - Conduct Unbecoming a Member of Arcanum. Punishment is a Public Lashing: Cannot take actions for 3 turns, unless they have nahlrout.
+        /// Expulsion - Conduct Unbecoming a Member of Arcanum. Punishment is Expulsion.
+        /// </summary>
         public enum Outcome { Dropped, Mischief, RecklessUse, ConductUnbecoming, Expulsion }
         
         public static List<Player> playersOnHorns = new List<Player>();
         List<KKC.Fields> mastersNPCs;
         List<Player> masterPCs;
 
-        // Initialise, then run DistributeDP, followed by OnTheHorns().
+        /// <summary>
+        /// Initialise, then run DistributeDP, followed by OnTheHorns().
+        /// </summary>
         public Horns()
         {
             // Setup NPC Masters
@@ -53,23 +63,21 @@ namespace KKC_Test_2
                 // Don't know if masters should still get the tuition inflation from the complaint though. Check where tuition is actually calculated.
             }
 
-
         }
 
-        // _players should contain one instance of every player that received any complaints.
-        // Player objects will store the total amount of DP given (in Player.DP),
-        // and a List<Player> of all complaints against them.
+        /// <summary>
+        /// Distributes DP to players, taking into account randomised DP from NPC masters, designated DP from PC masters, and DP from complaints.
+        /// </summary>
         public void DistributeDP()
         {
             // DP from NPC masters
-            Random rand = new Random();
             foreach (var master in mastersNPCs)
             {
-                AddDP(master, playersOnHorns[rand.Next(0, playersOnHorns.Count)]);
-                AddDP(master, playersOnHorns[rand.Next(0, playersOnHorns.Count)]);
-                AddDP(master, playersOnHorns[rand.Next(0, playersOnHorns.Count)]);
-                AddDP(master, playersOnHorns[rand.Next(0, playersOnHorns.Count)]);
-                AddDP(master, playersOnHorns[rand.Next(0, playersOnHorns.Count)]);
+                AddDP(master, playersOnHorns[Dice.Roll(playersOnHorns.Count)-1]);
+                AddDP(master, playersOnHorns[Dice.Roll(playersOnHorns.Count)-1]);
+                AddDP(master, playersOnHorns[Dice.Roll(playersOnHorns.Count)-1]);
+                AddDP(master, playersOnHorns[Dice.Roll(playersOnHorns.Count)-1]);
+                AddDP(master, playersOnHorns[Dice.Roll(playersOnHorns.Count)-1]);
             }
             // DP from PC masters
             foreach (Player master in masterPCs)
@@ -86,6 +94,11 @@ namespace KKC_Test_2
             }
         }
 
+        /// <summary>
+        /// Assigns DP from a master, taking into account any corrospending EP to offset the gained DP.
+        /// </summary>
+        /// <param name="master">The field of the master assigning DP.</param>
+        /// <param name="player">The player DP is being assigned to.</param>
         public void AddDP(KKC.Fields master, Player player)
         {
             // If EP is available for the particular field, EP offsets the DP, otherwise increase amount of DP.
@@ -99,13 +112,19 @@ namespace KKC_Test_2
             }
         }
 
+        /// <summary>
+        /// Converts complaints on a target player into the required number of DP (1 DP for every two complaints).
+        /// </summary>
+        /// <param name="player">Player to add a DP to.</param>
         public void AddDP(Player player)
         {
             // Add 1 DP for every 2 complaints (rounded down).
             player.DP += player.ComplaintsReceived.Count / 2;
         }
 
-        // Determines the outcome of all players with DP.
+        /// <summary>
+        /// Determines the outcome of all players with DP.
+        /// </summary>        
         public void OnTheHorns()
         {
             foreach (Player player in playersOnHorns)
@@ -114,13 +133,12 @@ namespace KKC_Test_2
                 {
                     player.TuitionAdjustment.OnHorns = true;
                 }
-                Random rand = new Random();
                 switch (player.DP)
                 {
                     case < 5:
                         break;
                     case < 7:
-                        switch (rand.Next(1, 101))
+                        switch (Dice.Roll(100))
                         {
                             case <= 60:
                                 // Charges Dropped
@@ -140,7 +158,7 @@ namespace KKC_Test_2
                         }
                         break;
                     case <= 10:
-                        switch (rand.Next(1,101))
+                        switch (Dice.Roll(100))
                         {
                             case <= 20:
                                 // Charges Dropped
@@ -164,7 +182,7 @@ namespace KKC_Test_2
                         }
                         break;
                     case <= 12:
-                        switch (rand.Next(1, 101))
+                        switch (Dice.Roll(100))
                         {
                             case <= 20:
                                 // Undignified Mischief (Apology)
@@ -188,7 +206,7 @@ namespace KKC_Test_2
                         }
                         break;
                     case <= 14:
-                        switch (rand.Next(1, 101))
+                        switch (Dice.Roll(100))
                         {
                             case <= 10:
                                 // Undignified Mischief (Apology)
@@ -212,7 +230,7 @@ namespace KKC_Test_2
                         }
                         break;
                     case <= 16:
-                        switch (rand.Next(1, 101))
+                        switch (Dice.Roll(100))
                         {
                             case <= 5:
                                 // Undignified Mischief (Apology)
@@ -236,7 +254,7 @@ namespace KKC_Test_2
                         }
                         break;
                     case <= 18:
-                        switch (rand.Next(1, 101))
+                        switch (Dice.Roll(100))
                         {
                             case <= 20:
                                 // Conduct Unbecoming a Member of the Arcanum (Lashings)
@@ -252,7 +270,7 @@ namespace KKC_Test_2
                         }
                         break;
                     case 19:
-                        switch (rand.Next(1, 101))
+                        switch (Dice.Roll(100))
                         {
                             case <= 10:
                                 // Conduct Unbecoming a Member of the Arcanum (Lashings)
