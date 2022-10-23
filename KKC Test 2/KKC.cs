@@ -12,9 +12,13 @@ namespace KKC_Test_2
     internal class KKC
     {
         /// <summary>
-        /// Player Name, Sheet ID
+        /// List of all player objects. All player references should be retrieved from this list.
         /// </summary>
         public static List<Player> playerList { get; set; } = new List<Player>();
+
+        /// <summary>
+        /// The different fields of study in the university. Use (int)KKC.Fields to cast to integer to use as an index to access lists and arrays.
+        /// </summary>
         public enum Fields { Linguistics, Arithmetics, RhetoricAndLogic, Archives, Sympathy, Physicking, Alchemy, Artificery, Naming };
 
         static readonly string[] Scopes = { SheetsService.Scope.Spreadsheets };
