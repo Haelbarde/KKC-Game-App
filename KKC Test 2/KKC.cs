@@ -28,6 +28,8 @@ namespace KKC_Test_2
         public static readonly string playerSheet = "Player Input";
         public static SheetsService service;
 
+
+
         /// <summary>
         /// Manages connection to Google Sheets, and importing initial player list into local memory.
         /// </summary>
@@ -83,6 +85,17 @@ namespace KKC_Test_2
             }
         }
 
+        public static void ImportAll()
+        {
+            EP.Import();
+            Horns.Import();
+        }
+
+        public static void ProcessAll()
+        {
+            EP.Process();
+            Horns.Process();
+        }
 
         /// <summary>
         /// Request Data from the GM Sheet Google Sheet.

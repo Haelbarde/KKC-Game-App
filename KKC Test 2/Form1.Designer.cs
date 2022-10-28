@@ -41,14 +41,20 @@
             this.EP1 = new System.Windows.Forms.ComboBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.uploadBTN = new System.Windows.Forms.Button();
+            this.turnBTN = new System.Windows.Forms.Button();
+            this.importBTN = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(219, 51);
+            this.button1.Location = new System.Drawing.Point(250, 68);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(86, 31);
             this.button1.TabIndex = 0;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
@@ -58,16 +64,19 @@
             // 
             this.playerListBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.playerListBox.FormattingEnabled = true;
-            this.playerListBox.Location = new System.Drawing.Point(12, 12);
+            this.playerListBox.Location = new System.Drawing.Point(14, 16);
+            this.playerListBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.playerListBox.Name = "playerListBox";
-            this.playerListBox.Size = new System.Drawing.Size(121, 23);
+            this.playerListBox.Size = new System.Drawing.Size(138, 28);
             this.playerListBox.TabIndex = 2;
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(12, 81);
+            this.groupBox1.Location = new System.Drawing.Point(14, 108);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(138, 180);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox1.Size = new System.Drawing.Size(158, 240);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Actions";
@@ -85,17 +94,18 @@
             "3.2",
             "4.1",
             "4.2"});
-            this.comboBox1.Location = new System.Drawing.Point(49, 52);
+            this.comboBox1.Location = new System.Drawing.Point(56, 69);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 23);
+            this.comboBox1.Size = new System.Drawing.Size(138, 28);
             this.comboBox1.TabIndex = 4;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 55);
+            this.label1.Location = new System.Drawing.Point(14, 73);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(31, 15);
+            this.label1.Size = new System.Drawing.Size(38, 20);
             this.label1.TabIndex = 5;
             this.label1.Text = "Turn";
             // 
@@ -106,9 +116,11 @@
             this.groupBox2.Controls.Add(this.EP3);
             this.groupBox2.Controls.Add(this.EP2);
             this.groupBox2.Controls.Add(this.EP1);
-            this.groupBox2.Location = new System.Drawing.Point(156, 81);
+            this.groupBox2.Location = new System.Drawing.Point(178, 108);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(138, 180);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox2.Size = new System.Drawing.Size(158, 240);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "EP";
@@ -127,9 +139,10 @@
             "Alchemy",
             "Artificery",
             "Naming"});
-            this.EP5.Location = new System.Drawing.Point(11, 138);
+            this.EP5.Location = new System.Drawing.Point(13, 184);
+            this.EP5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.EP5.Name = "EP5";
-            this.EP5.Size = new System.Drawing.Size(121, 23);
+            this.EP5.Size = new System.Drawing.Size(138, 28);
             this.EP5.TabIndex = 4;
             // 
             // EP4
@@ -146,9 +159,10 @@
             "Alchemy",
             "Artificery",
             "Naming"});
-            this.EP4.Location = new System.Drawing.Point(11, 109);
+            this.EP4.Location = new System.Drawing.Point(13, 145);
+            this.EP4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.EP4.Name = "EP4";
-            this.EP4.Size = new System.Drawing.Size(121, 23);
+            this.EP4.Size = new System.Drawing.Size(138, 28);
             this.EP4.TabIndex = 3;
             // 
             // EP3
@@ -165,9 +179,10 @@
             "Alchemy",
             "Artificery",
             "Naming"});
-            this.EP3.Location = new System.Drawing.Point(11, 80);
+            this.EP3.Location = new System.Drawing.Point(13, 107);
+            this.EP3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.EP3.Name = "EP3";
-            this.EP3.Size = new System.Drawing.Size(121, 23);
+            this.EP3.Size = new System.Drawing.Size(138, 28);
             this.EP3.TabIndex = 2;
             // 
             // EP2
@@ -184,9 +199,10 @@
             "Alchemy",
             "Artificery",
             "Naming"});
-            this.EP2.Location = new System.Drawing.Point(11, 51);
+            this.EP2.Location = new System.Drawing.Point(13, 68);
+            this.EP2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.EP2.Name = "EP2";
-            this.EP2.Size = new System.Drawing.Size(121, 23);
+            this.EP2.Size = new System.Drawing.Size(138, 28);
             this.EP2.TabIndex = 1;
             // 
             // EP1
@@ -203,17 +219,19 @@
             "Alchemy",
             "Artificery",
             "Naming"});
-            this.EP1.Location = new System.Drawing.Point(11, 22);
+            this.EP1.Location = new System.Drawing.Point(13, 29);
+            this.EP1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.EP1.Name = "EP1";
-            this.EP1.Size = new System.Drawing.Size(121, 23);
+            this.EP1.Size = new System.Drawing.Size(138, 28);
             this.EP1.TabIndex = 0;
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(300, 105);
+            this.checkBox1.Location = new System.Drawing.Point(343, 140);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(133, 19);
+            this.checkBox1.Size = new System.Drawing.Size(163, 24);
             this.checkBox1.TabIndex = 6;
             this.checkBox1.Text = "University Next Turn";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -221,18 +239,62 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(300, 130);
+            this.checkBox2.Location = new System.Drawing.Point(343, 173);
+            this.checkBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(105, 19);
+            this.checkBox2.Size = new System.Drawing.Size(129, 24);
             this.checkBox2.TabIndex = 7;
             this.checkBox2.Text = "Imre Next Turn";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.uploadBTN);
+            this.groupBox3.Controls.Add(this.turnBTN);
+            this.groupBox3.Controls.Add(this.importBTN);
+            this.groupBox3.Location = new System.Drawing.Point(569, 81);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(250, 174);
+            this.groupBox3.TabIndex = 8;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "groupBox3";
+            // 
+            // uploadBTN
+            // 
+            this.uploadBTN.Location = new System.Drawing.Point(24, 134);
+            this.uploadBTN.Name = "uploadBTN";
+            this.uploadBTN.Size = new System.Drawing.Size(154, 29);
+            this.uploadBTN.TabIndex = 2;
+            this.uploadBTN.Text = "Upload Data";
+            this.uploadBTN.UseVisualStyleBackColor = true;
+            this.uploadBTN.Click += new System.EventHandler(this.uploadBTN_Click);
+            // 
+            // turnBTN
+            // 
+            this.turnBTN.Location = new System.Drawing.Point(24, 87);
+            this.turnBTN.Name = "turnBTN";
+            this.turnBTN.Size = new System.Drawing.Size(154, 29);
+            this.turnBTN.TabIndex = 1;
+            this.turnBTN.Text = "Process Turn";
+            this.turnBTN.UseVisualStyleBackColor = true;
+            this.turnBTN.Click += new System.EventHandler(this.turnBTN_Click);
+            // 
+            // importBTN
+            // 
+            this.importBTN.Location = new System.Drawing.Point(24, 31);
+            this.importBTN.Name = "importBTN";
+            this.importBTN.Size = new System.Drawing.Size(154, 29);
+            this.importBTN.TabIndex = 0;
+            this.importBTN.Text = "Import Data";
+            this.importBTN.UseVisualStyleBackColor = true;
+            this.importBTN.Click += new System.EventHandler(this.importBTN_Click);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(914, 600);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.groupBox2);
@@ -241,9 +303,11 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.playerListBox);
             this.Controls.Add(this.button1);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -264,5 +328,9 @@
         private ComboBox EP1;
         private CheckBox checkBox1;
         private CheckBox checkBox2;
+        private GroupBox groupBox3;
+        private Button turnBTN;
+        private Button importBTN;
+        private Button uploadBTN;
     }
 }

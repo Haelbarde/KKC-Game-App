@@ -18,28 +18,28 @@ namespace KKC_Test_2
         /// </summary>
         public enum Outcome { Dropped, Mischief, RecklessUse, ConductUnbecoming, Expulsion }
         
-        public static List<Player> playersOnHorns = new List<Player>();
-        List<KKC.Fields> mastersNPCs;
-        List<Player> masterPCs;
+        public static List<Player> playersOnHorns = new();
+        static List<KKC.Fields> mastersNPCs = new();
+        static List<Player> masterPCs = new();
 
         /// <summary>
         /// Initialise, then run DistributeDP, followed by OnTheHorns().
         /// </summary>
         public Horns()
         {
-            // Setup NPC Masters
-            mastersNPCs = new List<KKC.Fields>();
-                mastersNPCs.Add(KKC.Fields.Linguistics);
-                mastersNPCs.Add(KKC.Fields.Arithmetics);
-                mastersNPCs.Add(KKC.Fields.RhetoricAndLogic);
-                mastersNPCs.Add(KKC.Fields.Archives);
-                mastersNPCs.Add(KKC.Fields.Sympathy);
-                mastersNPCs.Add(KKC.Fields.Physicking);
-                mastersNPCs.Add(KKC.Fields.Alchemy);
-                mastersNPCs.Add(KKC.Fields.Artificery);
-                mastersNPCs.Add(KKC.Fields.Naming);
+            
 
-            masterPCs = new List<Player>();
+        }
+
+        public static void Import()
+        {
+            // Setup NPC Masters
+            foreach (KKC.Fields field in Enum.GetValues(typeof(KKC.Fields)))
+            {
+                mastersNPCs.Add(field);
+            }
+            
+            // Setup PC Masters
             foreach (Player p in KKC.playerList)
             {
                 // Setup Complaints
@@ -53,7 +53,7 @@ namespace KKC_Test_2
                 }
             }
 
-            // Cull duplicate entries in playersOnHorns
+            // Cull duplicate entries from playersOnHorns
             playersOnHorns = playersOnHorns.Distinct().ToList();
 
             // Remove PC masters from list of DP
@@ -62,13 +62,18 @@ namespace KKC_Test_2
                 playersOnHorns.Remove(p);
                 // Don't know if masters should still get the tuition inflation from the complaint though. Check where tuition is actually calculated.
             }
+        }
 
+        public static void Process()
+        {
+            DistributeDP();
+            OnTheHorns();
         }
 
         /// <summary>
         /// Distributes DP to players, taking into account randomised DP from NPC masters, designated DP from PC masters, and DP from complaints.
         /// </summary>
-        public void DistributeDP()
+        static void DistributeDP()
         {
             // DP from NPC masters
             foreach (var master in mastersNPCs)
@@ -99,7 +104,7 @@ namespace KKC_Test_2
         /// </summary>
         /// <param name="master">The field of the master assigning DP.</param>
         /// <param name="player">The player DP is being assigned to.</param>
-        public void AddDP(KKC.Fields master, Player player)
+        static void AddDP(KKC.Fields master, Player player)
         {
             // If EP is available for the particular field, EP offsets the DP, otherwise increase amount of DP.
             if(player.EP[(int)master] > 0)
@@ -116,7 +121,7 @@ namespace KKC_Test_2
         /// Converts complaints on a target player into the required number of DP (1 DP for every two complaints).
         /// </summary>
         /// <param name="player">Player to add a DP to.</param>
-        public void AddDP(Player player)
+        static void AddDP(Player player)
         {
             // Add 1 DP for every 2 complaints (rounded down).
             player.DP += player.ComplaintsReceived.Count / 2;
@@ -125,7 +130,7 @@ namespace KKC_Test_2
         /// <summary>
         /// Determines the outcome of all players with DP.
         /// </summary>        
-        public void OnTheHorns()
+        static void OnTheHorns()
         {
             foreach (Player player in playersOnHorns)
             {
