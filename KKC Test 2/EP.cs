@@ -10,32 +10,37 @@ namespace KKC_Test_2
 {
     internal class EP
     {
-        List<List<Player>> playersInFields = new List<List<Player>>();
-        List<Player> playersElevated = new List<Player>();
+        static List<List<Player>> playersInFields = new List<List<Player>>();
+        static List<Player> playersElevated = new List<Player>();
 
         /// <summary>
         /// Manages all Elevation Point calculations.
         /// </summary>
         public EP()
         {
-            var input = KKC.RequestGMRange(KKC.gmSheet, "C2:K" + (KKC.playerList.Count + 1));
-            var values = input.Values;
+            
+        }
 
-            ImportPlayers(values);
-
+        public static void Import()
+        {
             for (int i = 0; i < 9; i++)
             {
                 playersInFields.Add(new List<Player>());
             }
-        }
 
+            ImportExistingEP();
+            ImportNewEP();
+        }
 
         /// <summary>
         /// Import existing EP totals from GM Spreadsheet into each player's EP field.
         /// </summary>
         /// <param name="playerInput">Array of data imported from GM Spreadsheet.</param>
-        public void ImportPlayers(IList<IList<object>> playerInput)
+        private static void ImportExistingEP()
         {
+            var input = KKC.RequestGMRange(KKC.gmSheet, "C2:K" + (KKC.playerList.Count + 1));
+            var playerInput = input.Values;
+
             if (playerInput is not null && playerInput.Count > 0)
             {
                 foreach (Player player in KKC.playerList)
@@ -53,10 +58,10 @@ namespace KKC_Test_2
         }
 
         /// <summary>
-        /// Imports data from each Player's Sheet.
+        /// Imports EP filed from each Player sheet
         /// </summary>
         /// <exception cref="Exception"></exception>
-        public static void ImportRound()
+        private static void ImportNewEP()
         {
             // Import player data from each sheet
 
@@ -77,21 +82,40 @@ namespace KKC_Test_2
 
                         if (Enum.TryParse(val, out KKC.Fields field) is false)
                         {
-                            throw new Exception("");
+                            throw new Exception("Field not found.");
                         }
-                        player.EPFiled.Add(field);
-                        // Adds the EP to the existing EP total
-                        player.EP[(int)field] += 1;
+                        player.EPFiled.Add(field); 
                     }
                 }
             }
         }
 
 
+        public static void Process()
+        {
+            FileEP();
+
+
+
+        }
+
+        static void FileEP()
+        {
+            // Impress Masters - Adds EP Filed to player EP pools
+            foreach (Player player in KKC.playerList)
+            {
+                foreach (var item in player.EPFiled)
+                {
+                    // Adds the EP to the existing EP total
+                    player.EP[(int)item] += 1;
+                }
+            }
+        }
+
         /// <summary>
         /// Randomly elevates a player in the specified field.
         /// </summary>
-        public void ElevateField(KKC.Fields field)
+        public static void ElevateField(KKC.Fields field)
         {
             Random random = new();
 
@@ -174,7 +198,7 @@ namespace KKC_Test_2
         /// <summary>
         /// Find the sum of all EP invested in the specified field.
         /// </summary>>
-        public int EPPool(KKC.Fields field)
+        public static int EPPool(KKC.Fields field)
         {
             int sum = 0;
             int index = (int)field;
@@ -196,7 +220,7 @@ namespace KKC_Test_2
         /// <summary>
         /// Uploads updated EP to GM Sheet
         /// </summary>
-        public void Upload()
+        public static void Upload()
         {
             // Save Points to GM sheet
             var valueRange = new ValueRange();
@@ -213,7 +237,7 @@ namespace KKC_Test_2
         /// Packages EP into the ValueRange datatype
         /// </summary>
         /// <returns>Returns converted EP structure.</returns>
-        public IList<IList<object>> ToLists()
+        public static IList<IList<object>> ToLists()
         {
             Debug.Log($"Packaging Player EP arrays for upload...");
             IList<IList<object>> list = new List<IList<object>>();

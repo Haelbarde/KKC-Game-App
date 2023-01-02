@@ -105,7 +105,7 @@ namespace KKC_Test_2
             if (ep is not null)
             {
                 // Imports current EP from player sheets
-                EP.ImportRound();
+                // EP.ImportNewEP();
 
                 EP.WriteToConsole();
 
@@ -114,7 +114,7 @@ namespace KKC_Test_2
                 // Need to deal with elevating a PC to Master first.
                 foreach (KKC.Fields field in Enum.GetValues(typeof(KKC.Fields)))
                 {
-                    ep.ElevateField(field);
+                    EP.ElevateField(field);
                 }
 
                 EP.WriteToConsole();
@@ -125,10 +125,26 @@ namespace KKC_Test_2
                 // - Update GM Data
 
                 Debug.Log($"Uploading to Google Sheets...");
-                ep.Upload();
+                EP.Upload();
                 Debug.Log($"Upload Completed.");
 
             }
+        }
+
+        private void importBTN_Click(object sender, EventArgs e)
+        {
+            KKC.ImportAll();
+
+        }
+
+        private void turnBTN_Click(object sender, EventArgs e)
+        {
+            KKC.ProcessAll();
+        }
+
+        private void uploadBTN_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
